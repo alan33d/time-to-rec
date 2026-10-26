@@ -1,0 +1,4 @@
+# Raw 12 MB Specref snapshot — regenerate with ./fetch-data.sh; the page uses data/compact.json
+data/w3c.json
+dist/d3.min.js
+.DS_Store

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Time-to-REC — how long do W3C specs take?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: light; }
+  body { font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; color: #222; background: #fff; }
+  header { padding: 20px 28px 10px; border-bottom: 1px solid #eee; }
+  h1 { margin: 0 0 4px; font-size: 24px; } h2 { font-size: 18px; margin: 28px 0 6px; }
+  .sub { color: #555; margin: 0; }
+  main { padding: 8px 28px 60px; }
+  section { margin-top: 12px; }
+  .controls { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin: 10px 0; }
+  .controls label { display: flex; gap: 6px; align-items: center; }
+  select, input[type=search] { font: inherit; padding: 4px 6px; }
+  #headline { background: #f6f8fa; border-radius: 8px; padding: 10px 14px; margin: 10px 0; }
+  #status { color: #a00; font-weight: 600; }
+  .scroll { overflow-x: auto; }
+  svg { display: block; }
+  .row-label { font-size: 12.5px; font-weight: 600; }
+  .row-sub { font-size: 11px; fill: #666; }
+  .axis-label { font-size: 11px; fill: #666; }
+  #legend { font-size: 12px; color: #444; margin: 6px 0 2px; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
+  #tip { position: absolute; display: none; pointer-events: none; background: #222; color: #fff; padding: 6px 9px; border-radius: 6px; font-size: 12px; max-width: 360px; line-height: 1.35; z-index: 9; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { background: #f6f8fa; font-weight: 600; }
+  td:first-child, td:last-child { text-align: right; }
+  code { background: #f1f1f1; padding: 1px 4px; border-radius: 3px; }
+  footer { color: #666; font-size: 12px; margin-top: 30px; }
+  a { color: #0b57d0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Time-to-REC</h1>
+  <p class="sub">How long does it take a W3C specification to go from First Public Working Draft to Recommendation — and which groups are fastest? Every dot is a spec. Hover for details, click to open it.</p>
+</header>
+<main>
+  <div id="status"></div>
+  <div id="headline">Loading…</div>
+
+  <section>
+    <h2>1 · Years per stage, by group</h2>
+    <div class="controls">
+      <label>Metric <select id="metric"></select></label>
+      <label>Groups shown <input id="topn" type="range" min="5" max="40" value="18"> <span id="topn-val">18</span></label>
+      <label>Highlight <input id="search" type="search" placeholder="e.g. audio, css, webrtc"></label>
+    </div>
+    <p class="sub" id="metric-desc"></p>
+    <div id="legend"></div>
+    <div class="scroll"><svg id="swarm"></svg></div>
+  </section>
+
+  <section>
+    <h2>2 · Thirty years of /TR publications</h2>
+    <p class="sub" id="heat-note"></p>
+    <div class="scroll"><svg id="heat"></svg></div>
+  </section>
+
+  <section>
+    <h2>3 · Still waiting: oldest rec-track specs that never reached REC</h2>
+    <div class="controls"><label>First published since <select id="since">
+      <option value="1990">any year</option><option value="2005">2005</option><option value="2010" selected>2010</option><option value="2015">2015</option><option value="2020">2020</option>
+    </select></label></div>
+    <table id="shame">
+      <thead><tr><th>#</th><th>Specification</th><th>Group</th><th>Status</th><th>FPWD</th><th>Last publication</th><th>Years</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <footer>
+    Data: <a href="https://github.com/tobie/specref/blob/main/refs/w3c.json">Specref <code>refs/w3c.json</code></a> (every dated /TR version with maturity status and delivering group) and the
+    <a href="https://api.w3.org/groups">W3C API</a> for group names. Durations use the first FPWD (or the earliest publication for pre-FPWD-era specs), first CR/CRD, and first REC in each spec series.
+    Built in 90 minutes at the <a href="https://www.w3.org/2026/10/TPAC/hackathon/">W3C TPAC 2026 hackathon</a>.
+  </footer>
+</main>
+<div id="tip"></div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="app.js"></script>
+</body>
+</html>
