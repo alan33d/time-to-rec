@@ -251,6 +251,12 @@ if (typeof document !== "undefined") (async function main() {
   }
   $("#since").addEventListener("change", drawShame);
 
+  // Shareable state: ?metric=waiting&groups=25&q=audio
+  const params = new URLSearchParams(location.search);
+  if (params.get("q")) $("#search").value = params.get("q");
+  if (METRICS[params.get("metric")]) sel.value = params.get("metric");
+  if (+params.get("groups")) $("#topn").value = +params.get("groups");
+
   drawSwarm(); drawHeatmap(); drawShame();
   window.addEventListener("resize", drawSwarm);
 })().catch(err => { document.querySelector("#status").textContent = "Failed to load data: " + err; console.error(err); });

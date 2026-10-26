@@ -1,7 +1,5 @@
 # Time-to-REC — how long do W3C specs take?
 
-**Live: <https://alan33d.github.io/time-to-rec/>**
-
 A single-page visualization of **30 years of W3C /TR publication history**, built for the
 [W3C TPAC 2026 hackathon](https://www.w3.org/2026/10/TPAC/hackathon/) (Challenge 01: visualize standards data).
 
